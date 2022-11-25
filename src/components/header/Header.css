@@ -1,0 +1,24 @@
+.app-header-svg-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-top: 2%;
+  width: 25%;
+  margin: auto;
+  justify-content: space-evenly;
+}
+
+.p-logo {
+  color: var(--light-blue);
+  font-size: 1.8rem;
+}
+
+.hr-header {
+  width: 60%;
+  border-top: var(--lightGrey);
+}
+
+.h1-header {
+  font-size: 5.6rem;
+  font-weight: 700;
+}

@@ -1,0 +1,17 @@
+.change-type-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 4% 2%;
+  background-color: white;
+  border-radius: 5px;
+  margin-bottom: 1%;
+  font-size: 1.6rem;
+  color: var(---black-p);
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.link-to-home {
+  font-size: 1.4rem;
+  color: var(--blue);
+}

@@ -1,0 +1,138 @@
+.addresses {
+  height: 100%;
+}
+.addresses-component-body-container {
+  background-color: white;
+  border-radius: 5px;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  position: relative;
+}
+
+.arrow-and-input-container {
+  display: flex;
+  flex-direction: row;
+  height: 10%;
+  padding-top: 3%;
+  width: 100%;
+}
+.arrow-container {
+  height: 100%;
+  width: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.arrow-svg {
+  /* width: 35%; */
+  /* height: 35%; */
+}
+.label-and-autocomplete-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: 100%;
+  width: 90%;
+}
+
+.autocomplete {
+  /*the container must be positioned relative:*/
+  position: relative;
+  display: inline-block;
+}
+.auto-complete-label {
+  display: block;
+  font-size: 1.4rem;
+  color: var(--font-bold-grey);
+}
+.moving-apatment-svg-container {
+  height: 40%;
+  width: 100%;
+  overflow: hidden;
+}
+.MovingApatment-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.continue-or-reset {
+  width: 100%;
+  position: absolute;
+  bottom: 0%;
+  font-size: 1.6rem;
+  color: var(--blue);
+  font-weight: bolder;
+  cursor: pointer;
+  z-index: 999;
+  display: flex;
+  justify-content: space-evenly;
+}
+input {
+  font-size: 1.7rem;
+  box-shadow: none;
+  padding: 0;
+  border: none;
+  color: var(--black-for-address);
+  opacity: 0.25;
+  font-weight: 400;
+  margin: 0;
+  height: fit-content;
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  /* border-bottom-style: groove; */
+  width: 100%;
+  outline: none;
+}
+
+input[type="text"] {
+  background-color: #f1f1f1;
+  width: 100%;
+  outline: none;
+  box-shadow: none;
+}
+input[type="submit"] {
+  background-color: DodgerBlue;
+  color: #fff;
+}
+.autocomplete-items {
+  position: absolute;
+  border: 1px solid #d4d4d4;
+  border-bottom: none;
+  border-top: none;
+  z-index: 99;
+  /*position the autocomplete items to be the same width as the container:*/
+  top: 100%;
+  left: 0;
+  right: 0;
+}
+.autocomplete-items div {
+  padding: 10px;
+  cursor: pointer;
+  background-color: #fff;
+  border-bottom: 1px solid #d4d4d4;
+}
+.autocomplete-items div:hover {
+  /*when hovering an item:*/
+  background-color: #e9e9e9;
+}
+.autocomplete-active {
+  /*when navigating through the items using the arrow keys:*/
+  background-color: DodgerBlue !important;
+  color: #ffffff;
+}
+
+/* textarea:focus ,input:focus{ */
+/* outline: none; */
+/* } */
+textarea:hover,
+input:hover {
+  box-shadow: none;
+}
+
+footer {
+  color: var(--lightGrey);
+}

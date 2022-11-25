@@ -1,0 +1,131 @@
+.booking-page {
+  height: 100%;
+  border-radius: 5px;
+  width: 100%;
+  position: relative;
+}
+
+.booking-page-inner-container {
+  display: flex;
+  width: 100%;
+  height: 90%;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: white;
+  border-radius: 5px;
+}
+
+.address-container {
+  height: 6%;
+  display: flex;
+  flex-direction: row;
+  border-radius: 5px;
+  font-size: 1.7rem;
+  color: var(---black-p);
+  font-weight: 700;
+  text-transform: capitalize;
+  width: 96%;
+  margin: auto;
+}
+.arrow-svg-container-bokking {
+  margin-right: 2%;
+}
+.car-svg {
+  height: 55%;
+}
+
+.car-svg-animation {
+  height: 55%;
+  position: relative;
+  animation-name: carAnimation;
+  animation-duration: 4s;
+  animation-direction: reverse;
+}
+
+@keyframes carAnimation {
+  0% {
+    left: 0px;
+    top: 0px;
+  }
+  25% {
+    left: 200px;
+    top: 0px;
+  }
+  50% {
+    left: 200px;
+    top: -200px;
+  }
+  75% {
+    left: 0פס;
+    top: -200px;
+  }
+  100% {
+    left: 0px;
+    top: 0px;
+  }
+}
+
+.booking-opt-li-container {
+  height: 18%;
+  background-color: var(--background-grey);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 96%;
+  margin: auto;
+}
+.opt-li-details {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  align-items: flex-start;
+}
+
+.opt-title {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.opt-description {
+  font-size: 1.2rem;
+  margin: 0;
+}
+.opt-price {
+  margin: 0;
+  font-size: 1.6rem;
+}
+.booking-button {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--strong-blue);
+  background-color: var(--yellow);
+  height: 55%;
+}
+
+.modal-list {
+  position: absolute;
+  box-sizing: border-box;
+  right: 100%;
+  z-index: 999;
+  background: white;
+  padding: 10px;
+  border: 1px solid grey;
+  box-shadow: 0 0 2px 2px grey;
+  font-size: 1.6rem;
+  top: 9%;
+  width: 50%;
+}
+.modal-list-submitted {
+  position: absolute;
+  box-sizing: border-box;
+  left: 100%;
+  z-index: 999;
+  background: white;
+  padding: 10px;
+  border: 1px solid grey;
+  box-shadow: 0 0 2px 2px grey;
+  font-size: 1.6rem;
+  top: 9%;
+  width: 50%;
+}
