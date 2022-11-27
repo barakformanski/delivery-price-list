@@ -1,13 +1,15 @@
 import { Link } from "react-router-dom";
 import "./ChangeDeliveryComponent.css";
 
-function ChangeDeliveryComponent({ chosenDelivery }) {
+function ChangeDeliveryComponent({ chosenDelivery, disabled }) {
   return (
     <div className="change-type-container">
       {chosenDelivery.replace("_", " ")}
-      <Link className="link-to-home" to="/">
-        change
-      </Link>
+      {!disabled && (
+        <Link className="link-to-home" to="/">
+          change
+        </Link>
+      )}
     </div>
   );
 }

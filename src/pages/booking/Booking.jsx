@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import ArrowUp from "../../assets/images/ArrowUp.svg";
@@ -17,6 +17,11 @@ const Booking = ({
   chosenDelivery,
   originSelected,
   destenitionSelected,
+  setOriginSelected,
+  setDestenitionSelected,
+  setChosenDelivery,
+  setDestinations,
+  setOrigins,
 }) => {
   const navigate = useNavigate();
 
@@ -57,13 +62,10 @@ const Booking = ({
   const [selectedOption, setSelectedOption] = useState(null);
 
   const renderModal = (pricePerKm, pricePerMin, modalType, totalPrice) => {
-    console.log("modalType", modalType);
-    console.log("selectedOption", selectedOption);
-
     if (modalType === "errorModal") {
       return (
         <Link to="/addresses">
-          not distance/duration calculated- go back and choose addres again
+          not distance/duration calculated- go back and choose address again
         </Link>
       );
     } else {
@@ -94,6 +96,10 @@ const Booking = ({
                 onClick={() => {
                   setsubmitModal(false);
                   setButtonClassName("car-svg");
+                  setOriginSelected("");
+                  setDestenitionSelected("");
+                  setChosenDelivery("");
+
                   navigate("/");
                 }}
               >
@@ -118,6 +124,8 @@ const Booking = ({
     setSelectedOption(index);
     setsubmitModal(true);
     setButtonClassName("car-svg-animation");
+    setOrigins([]);
+    setDestinations([]);
   };
 
   useEffect(() => {
@@ -130,7 +138,10 @@ const Booking = ({
         <div style={{}}>{renderModal(null, null, "errorModal")}</div>
       )}
       <div>
-        <ChangeDeliveryComponent chosenDelivery={chosenDelivery} />
+        <ChangeDeliveryComponent
+          chosenDelivery={chosenDelivery}
+          disabled={submitModal}
+        />
       </div>
       <div className="booking-page-inner-container">
         <div className="address-container">
@@ -157,8 +168,7 @@ const Booking = ({
               >
                 <p className="opt-title">{opt.title}</p>
                 <p className="opt-description">{opt.description}</p>
-                {console.log("distance", distance)}
-                {console.log("duration", duration)}
+
                 {distance && duration ? (
                   <p className="opt-price">
                     {calculatePrice(

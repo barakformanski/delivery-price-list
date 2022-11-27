@@ -51,7 +51,6 @@ const DeliveryType = ({
                 navigate("addresses");
               }}
             >
-              {console.log(type)}
               <img
                 className="delivery-type-svg"
                 src={chooseSvg(type)}

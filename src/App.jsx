@@ -21,6 +21,8 @@ function App() {
   const [chosenDelivery, setChosenDelivery] = useState("");
   const [distance, setDistance] = useState();
   const [duration, setDuration] = useState();
+  const [destinations, setDestinations] = useState([]);
+  const [origins, setOrigins] = useState([]);
   const [originSelected, setOriginSelected] = useState();
   const [destenitionSelected, setDestenitionSelected] = useState();
   return (
@@ -46,6 +48,10 @@ function App() {
             element={
               <Addresses
                 chosenDelivery={chosenDelivery}
+                destinations={destinations}
+                setDestinations={setDestinations}
+                origins={origins}
+                setOrigins={setOrigins}
                 distance={distance}
                 setDistance={setDistance}
                 duration={duration}
@@ -68,6 +74,11 @@ function App() {
                 setOriginSelected={setOriginSelected}
                 destenitionSelected={destenitionSelected}
                 setDestenitionSelected={setDestenitionSelected}
+                setChosenDelivery={setChosenDelivery}
+                destinations={destinations}
+                setDestinations={setDestinations}
+                origins={origins}
+                setOrigins={setOrigins}
               />
             }
           />

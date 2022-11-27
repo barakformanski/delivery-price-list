@@ -14,28 +14,30 @@ function Addresses({
   setDistance,
   duration,
   setDuration,
+  originSelected,
   setOriginSelected,
+  destenitionSelected,
   setDestenitionSelected,
+  setDestinations,
+  destinations,
+  origins,
+  setOrigins,
 }) {
-  const [destinations, setDestinations] = useState([]);
-  const [origins, setOrigins] = useState([]);
   const shouldRun = useRef(true);
   const autoComplete = useRef();
   const autoComplete2 = useRef();
-  const [typing, setTyping] = useState(false);
 
-  const reset = () => {
-    setOrigins([]);
-    setDestinations([]);
+  const reset = (value = "all") => {
     autoComplete.current.value = "";
     autoComplete2.current.value = "";
     setDistance();
     setDuration();
+
+    setOrigins([]);
+    setDestinations([]);
   };
   useEffect(() => {
     if (origin?.length && destinations?.length) {
-      // if (distance && duration)
-      console.log("Distance & Duration have updated", distance, duration);
       shouldRun.current = true;
     }
   }, [destinations?.length, origins?.length, distance, duration]);
@@ -43,15 +45,12 @@ function Addresses({
   const distanceCallback = (response) => {
     try {
       if (response.rows[0].elements[0].status.toLowerCase() === "ok") {
-        console.log("distanc inside CB", distance);
-        console.log("duration inside CB", duration);
-        console.log("response", response);
         setDistance(response.rows[0].elements[0].distance);
         setDuration(response.rows[0].elements[0].duration);
         shouldRun.current = false;
       } else {
         alert(
-          "Error on google calculation for your choicesץ Tere might be some reasins for this. try to choose places from the same region (two Israelies paces for example), or to relaod the app"
+          "Server Error form google calculation. Tere might be some reasons for this. try to choose places from the same region (two Israelies places for example), or to relaod the app if nothing help"
         );
         reset();
       }
@@ -59,7 +58,10 @@ function Addresses({
       console.log(e);
     }
   };
-
+  const options = {
+    types: ["geocode", "establishment"],
+  };
+  const apiKey = process.env.REACT_APP_API_KEY;
   return (
     <div className="addresses">
       <ChangeDeliveryComponent chosenDelivery={chosenDelivery} />
@@ -72,33 +74,29 @@ function Addresses({
           <div className="label-and-autocomplete-container">
             <label className="auto-complete-label">Pick up from</label>
             <Autocomplete
-              onChange={(e) => setTyping(true)}
+              defaultValue={originSelected && originSelected}
+              onChange={(e) => setOrigins()}
               ref={autoComplete}
               placeholder="type and select origin's address"
-              apiKey={process.env.REACT_APP_API_KEY}
+              apiKey={apiKey}
+              options={options}
               onPlaceSelected={(place) => {
-                console.log(place);
-                console.log("Lat", place?.geometry?.location?.lat());
-                console.log("Lng", place?.geometry?.location?.lng());
                 setOrigins([
                   {
                     lat: place.geometry.location.lat(),
                     lng: place.geometry.location.lng(),
                   },
                 ]);
-                setTyping(false);
                 setOriginSelected(autoComplete.current.value);
               }}
             />
-            {console.log("autoComplete", autoComplete)}
           </div>
         </div>
         <hr className="hr-header" />
         {destinations &&
           distance &&
-          autoComplete?.current?.value &&
-          autoComplete2?.current?.value &&
-          !typing && (
+          origins?.length > 0 &&
+          destinations?.length > 0 && (
             <div className="continue-or-reset">
               <Link to="/booking" className="continue-to-booking">
                 continue to booking
@@ -114,22 +112,21 @@ function Addresses({
           <div className="label-and-autocomplete-container">
             <label className="auto-complete-label">Pick up from</label>
             <Autocomplete
-              onChange={(e) => setTyping(true)}
+              defaultValue={destenitionSelected && destenitionSelected}
+              onChange={(e) => {
+                setDestinations();
+              }}
               ref={autoComplete2}
               placeholder="type and select address"
-              apiKey={process.env.REACT_APP_API_KEY}
+              apiKey={apiKey}
+              options={options}
               onPlaceSelected={(place) => {
-                console.log(place);
-                console.log("Lat", place?.geometry?.location?.lat());
-                // console.log("typeof", typeof place?.geometry?.location?.lat());
-                console.log("Lng", place?.geometry?.location?.lng());
                 setDestinations([
                   {
                     lat: place.geometry.location.lat(),
                     lng: place.geometry.location.lng(),
                   },
                 ]);
-                setTyping(false);
                 setDestenitionSelected(autoComplete2.current.value);
               }}
             />
@@ -142,17 +139,12 @@ function Addresses({
             options={{
               destinations: destinations,
               origins: origins,
-              // destinations: [{ lat: 1.296788, lng: 103.778961 }],
-              // origins: [{ lng: 103.780267, lat: 1.291692 }],
-              // @ts-ignore:Type '"DRIVING"' is not assignable to type 'TravelMode'// Type '"DRIVING"' is not assignable to type 'TravelMode'
+
               travelMode: "DRIVING",
             }}
             callback={distanceCallback}
           />
         )}
-        {/* <div>distance:{distance && distance.text}</div>
-        {console.log("DISTANCE", distance)}
-        <div> duration:{duration && duration.text}</div> */}
 
         <div className="moving-apatment-svg-container">
           <img
@@ -163,7 +155,6 @@ function Addresses({
         </div>
         <footer>
           <p>
-            {" "}
             All our Luggers are equipped with the necessary tools such as
             straps, blankets and wrap to protect your items.
           </p>
