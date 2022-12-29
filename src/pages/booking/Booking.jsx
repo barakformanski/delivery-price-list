@@ -1,13 +1,15 @@
-import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+/* eslint-disable react/prop-types */
+import { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
-import ArrowUp from "../../assets/images/ArrowUp.svg";
-import ArrowDown from "../../assets/images/ArrowDown.svg";
-import deliveryOptions from "./assets/mockDataDeliveryOptions";
-import ChangeDeliveryComponent from "../../components/changeDeliveryComponent/CahngeDeliveryComponent";
-import "./Booking.css";
-import { calculatePrice } from "./calculatePrice";
-const Booking = ({
+import ArrowUp from '../../assets/images/ArrowUp.svg';
+import ArrowDown from '../../assets/images/ArrowDown.svg';
+import deliveryOptions from './assets/mockDataDeliveryOptions';
+import ChangeDeliveryComponent from '../../components/changeDeliveryComponent/CahngeDeliveryComponent';
+import './Booking.css';
+import { calculatePrice } from './assets/calculatePrice';
+
+function Booking({
   distance,
   duration,
   chosenDelivery,
@@ -17,65 +19,60 @@ const Booking = ({
   setDestenitionSelected,
   setChosenDelivery,
   setDestinations,
-  setOrigins,
-}) => {
+  setOrigins
+}) {
   const navigate = useNavigate();
 
   const [modal, setModal] = useState(false);
   const [errorModal, setErrorModal] = useState(false);
   const [submitModal, setsubmitModal] = useState(false);
-  const [buttonClassName, setButtonClassName] = useState("car-svg");
+  const [buttonClassName, setButtonClassName] = useState('car-svg');
   const [selectedOption, setSelectedOption] = useState(null);
 
   const renderModal = (pricePerKm, pricePerMin, modalType, totalPrice) => {
-    if (modalType === "errorModal") {
+    if (modalType === 'errorModal') {
       return (
         <Link to="/addresses">
           not distance/duration calculated- go back and choose address again
         </Link>
       );
-    } else {
-      return (
-        <div
-          className={
-            modalType === "submitModal" ? "modal-list-submitted" : "modal-list"
-          }
-        >
-          {modalType === "submitModal" && <p>booking succedded!</p>}
-          <p>Distance :{distance.text}</p>
-          <p>
-            Duration:
-            {duration.text}
-          </p>
-          <p>
-            Price per min:
-            {pricePerMin}
-          </p>
-          <p>
-            Price ker km:
-            {pricePerKm}
-          </p>
-          {modalType === "submitModal" && (
-            <>
-              <p>Total-price={totalPrice}$</p>
-              <button
-                onClick={() => {
-                  setsubmitModal(false);
-                  setButtonClassName("car-svg");
-                  setOriginSelected("");
-                  setDestenitionSelected("");
-                  setChosenDelivery("");
-
-                  navigate("/");
-                }}
-              >
-                Order Another Delivery
-              </button>
-            </>
-          )}
-        </div>
-      );
     }
+    return (
+      <div className={modalType === 'submitModal' ? 'modal-list-submitted' : 'modal-list'}>
+        {modalType === 'submitModal' && <p>booking succedded!</p>}
+        <p>Distance :{distance.text}</p>
+        <p>
+          Duration:
+          {duration.text}
+        </p>
+        <p>
+          Price per min:
+          {pricePerMin}
+        </p>
+        <p>
+          Price ker km:
+          {pricePerKm}
+        </p>
+        {modalType === 'submitModal' && (
+          <>
+            <p>Total-price={totalPrice}$</p>
+            <button
+              type="button"
+              onClick={() => {
+                setsubmitModal(false);
+                setButtonClassName('car-svg');
+                setOriginSelected('');
+                setDestenitionSelected('');
+                setChosenDelivery('');
+
+                navigate('/');
+              }}>
+              Order Another Delivery
+            </button>
+          </>
+        )}
+      </div>
+    );
   };
   const handleLeave = () => {
     setSelectedOption();
@@ -89,30 +86,27 @@ const Booking = ({
   const handleSubmit = (index) => {
     setSelectedOption(index);
     setsubmitModal(true);
-    setButtonClassName("car-svg-animation");
+    setButtonClassName('car-svg-animation');
     setOrigins([]);
     setDestinations([]);
   };
 
   useEffect(() => {
-    (!distance || !duration) && setErrorModal(true);
+    if (!distance || !duration) {
+      setErrorModal(true);
+    }
   });
 
   return (
     <div className="booking-page">
-      {errorModal && (
-        <div style={{}}>{renderModal(null, null, "errorModal")}</div>
-      )}
+      {errorModal && <div style={{}}>{renderModal(null, null, 'errorModal')}</div>}
       <div>
-        <ChangeDeliveryComponent
-          chosenDelivery={chosenDelivery}
-          disabled={submitModal}
-        />
+        <ChangeDeliveryComponent chosenDelivery={chosenDelivery} disabled={submitModal} />
       </div>
       <div className="booking-page-inner-container">
         <div className="address-container">
           <div className="arrow-svg-container-bokking">
-            <img className="arrow-svg" src={ArrowUp} alt={"arrow svg"} />
+            <img className="arrow-svg" src={ArrowUp} alt="arrow svg" />
           </div>
           <div className="address-details">{originSelected}</div>
         </div>
@@ -120,86 +114,62 @@ const Booking = ({
 
         <div className="address-container">
           <div className="arrow-svg-container-bokking">
-            <img className="arrow-svg" src={ArrowDown} alt={"arrow svg"} />
+            <img className="arrow-svg" src={ArrowDown} alt="arrow svg" />
           </div>
           <div className="address-details">{destenitionSelected}</div>
         </div>
-        {deliveryOptions.map((opt, index) => {
-          return (
-            <div key={opt.title} className={"booking-opt-li-container"}>
-              <div
-                className="opt-li-details"
-                onMouseOver={() => handleHover(index)}
-                onMouseLeave={() => handleLeave()}
-              >
-                <p className="opt-title">{opt.title}</p>
-                <p className="opt-description">{opt.description}</p>
+        {deliveryOptions.map((opt, index) => (
+          <div key={opt.title} className="booking-opt-li-container">
+            <div
+              className="opt-li-details"
+              onMouseOver={() => handleHover(index)}
+              onMouseLeave={() => handleLeave()}
+              onFocus={() => handleHover(index)}
+              onBlur={() => handleLeave()}>
+              <p className="opt-title">{opt.title}</p>
+              <p className="opt-description">{opt.description}</p>
 
-                {distance && duration ? (
-                  <p className="opt-price">
-                    {calculatePrice(
-                      opt.pricePerKm,
-                      distance,
-                      opt.pricePerMin,
-                      duration
-                    )}
-                    $
-                  </p>
-                ) : (
-                  <p>can not calculate price</p>
-                )}
-              </div>
-              <img
-                className={buttonClassName}
-                src={opt.img}
-                alt={"arrow svg"}
-              />
-              <button
-                className={"booking-button"}
-                disabled={
-                  buttonClassName === "car-svg-animation" ||
-                  !distance ||
-                  !duration
-                    ? true
-                    : false
-                }
-                onClick={() => {
-                  handleSubmit(index);
-                }}
-              >
-                Book
-              </button>
-              <div
-                style={{
-                  display: index === selectedOption ? "contents" : "none",
-                }}
-              >
-                {modal
-                  ? renderModal(
-                      deliveryOptions[index].pricePerKm,
-                      deliveryOptions[index].pricePerMin,
-                      "detailsModal"
-                    )
-                  : submitModal
-                  ? renderModal(
-                      opt.pricePerKm,
-                      opt.pricePerMin,
-                      "submitModal",
-                      calculatePrice(
-                        opt.pricePerKm,
-                        distance,
-                        opt.pricePerMin,
-                        duration
-                      )
-                    )
-                  : null}
-              </div>
+              {distance && duration ? (
+                <p className="opt-price">
+                  {calculatePrice(opt.pricePerKm, distance, opt.pricePerMin, duration)}$
+                </p>
+              ) : (
+                <p>can not calculate price</p>
+              )}
             </div>
-          );
-        })}
+            <img className={buttonClassName} src={opt.img} alt="arrow svg" />
+            <button
+              type="submit"
+              className="booking-button"
+              disabled={!!(buttonClassName === 'car-svg-animation' || !distance || !duration)}
+              onClick={() => {
+                handleSubmit(index);
+              }}>
+              Book
+            </button>
+            <div
+              style={{
+                display: index === selectedOption ? 'contents' : 'none'
+              }}>
+              {modal &&
+                renderModal(
+                  deliveryOptions[index].pricePerKm,
+                  deliveryOptions[index].pricePerMin,
+                  'detailsModal'
+                )}
+              {submitModal &&
+                renderModal(
+                  opt.pricePerKm,
+                  opt.pricePerMin,
+                  'submitModal',
+                  calculatePrice(opt.pricePerKm, distance, opt.pricePerMin, duration)
+                )}
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
-};
+}
 
 export default Booking;

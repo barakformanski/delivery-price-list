@@ -1,6 +1,7 @@
-import { Link } from "react-router-dom";
-import "./Header.css";
-const Header = () => {
+import { Link } from 'react-router-dom';
+import './Header.css';
+
+function Header() {
   return (
     <div className="app-header">
       <Link to="/" className="app-header-svg-container">
@@ -9,8 +10,7 @@ const Header = () => {
           height="4.8rem"
           viewBox="0 0 102 48"
           fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+          xmlns="http://www.w3.org/2000/svg">
           <path
             fillRule="evenodd"
             clipRule="evenodd"
@@ -24,6 +24,6 @@ const Header = () => {
       <p className="h1-header">Get an estimate</p>
     </div>
   );
-};
+}
 
 export default Header;

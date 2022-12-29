@@ -1,20 +1,21 @@
-import React, { useState } from "react";
-import { Route, Routes } from "react-router-dom";
-import Addresses from "../pages/addresses/Addresses";
-import DeliveryType from "../pages/deliveryType/DeliveryType";
-import Booking from "../pages/booking/Booking";
-import NotFound from "../pages/notFound/NotFound";
+import { useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import Addresses from '../pages/addresses/Addresses';
+import DeliveryType from '../pages/deliveryType/DeliveryType';
+import Booking from '../pages/booking/Booking';
+import NotFound from '../pages/notFound/NotFound';
+
 function RoutesStructure() {
   const deliveryTypsArray = [
-    "store_delivery",
-    "small_move",
-    "storage_move",
-    "junk_removal",
-    "craigslist_Pickup",
-    "donation_pickup",
-    "other",
+    'store_delivery',
+    'small_move',
+    'storage_move',
+    'junk_removal',
+    'craigslist_Pickup',
+    'donation_pickup',
+    'other'
   ];
-  const [chosenDelivery, setChosenDelivery] = useState("");
+  const [chosenDelivery, setChosenDelivery] = useState('');
   const [distance, setDistance] = useState();
   const [duration, setDuration] = useState();
   const [destinations, setDestinations] = useState([]);
